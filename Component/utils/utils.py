@@ -98,10 +98,10 @@ def compute_all_metrics(
         metric = metric.to(device)
         try:
             if name in ['nll', 'rbs']:
-                if logits is not None:
-                    value = metric(logits=logits, labels=labels)
-                else:
+                if probs is not None:
                     value = metric(softmaxes=probs, labels=labels)
+                elif logits is not None:
+                    value = metric(logits=logits, labels=labels)
             elif name in ['ece', 'adaptive_ece', 'classwise_ece', 'ece_debiased', 'ece_sweep', 'accuracy']:
                 value = metric(softmaxes=probs, labels=labels)
             else:
