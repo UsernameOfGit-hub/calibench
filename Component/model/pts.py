@@ -185,8 +185,8 @@ class PTSCalibrator(Calibrator):
 
         t           = self.temp_branch(topk)     # (B,1)
         temperature = torch.abs(t)               # ← paper
-        # temperature = torch.clamp(temperature, 1e-12, 1e12)
-        temperature = torch.clamp(temperature, 0.1, 10)
+        temperature = torch.clamp(temperature, 1e-12, 1e12)
+        # temperature = torch.clamp(temperature, 0.1, 10)
 
         adjusted_logits = input_logits / temperature
         calibrated_probs= F.softmax(adjusted_logits, dim=1)
